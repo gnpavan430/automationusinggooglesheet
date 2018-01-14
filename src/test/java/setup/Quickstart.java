@@ -186,6 +186,39 @@ public class Quickstart {
                         .execute();
 
     }
+    public void appendValuesAddABooking(String network, Date timeStamp, long totalTime, long appTime, long responseTimeValue) throws IOException {
+        String range=null;
+        Sheets service = getSheetsService();
+        String spreadsheetId = "1Fap5e5uZvUeC1NjJJUr70ecTDHS7VcnS9iSphtZPxZE";
+        long time=timeStamp.getTime();
+        String timeString=timeStamp.toString();
+        if(network.equalsIgnoreCase("Good Network")){
+            range = "A2:D";
+        }else if(network.equalsIgnoreCase("Bad Network")){
+            range = "F2:I";
+        }
+        else if(network.equalsIgnoreCase("Edge Network")){
+            range = "K2:N";
+        }
+
+
+
+        List<List<Object>> values = Arrays.asList(
+                Arrays.asList(
+                        // Cell values ...
+                        timeString,loginTime,logoutTime,responseTimeValue
+
+                )
+                // Additional rows ...
+        );
+        ValueRange body = new ValueRange().setValues(values);
+
+        AppendValuesResponse result = service.spreadsheets().values().append(spreadsheetId, range, body)
+                .setValueInputOption(valueInputOption)
+                .execute();
+
+    }
+
 
 
 }

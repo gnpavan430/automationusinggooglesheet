@@ -6,6 +6,7 @@ import pageobjects.AddABookingPage;
 import pageobjects.HomePage;
 import pageobjects.MyTripsPage;
 import setup.GetLogs;
+import setup.Quickstart;
 import setup.Setup;
 import setup.Utilities;
 
@@ -15,11 +16,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddABookingTest extends Setup {
     public static ArrayList<String> data=new ArrayList<>();
-    @Test
-    public void addABookingTest() throws InterruptedException, IOException {
+    String goodNetwork="Good Network";
+    String badNetwork="Bad Network";
+    String edgeNetwork="Edge Network";
+
+    public void addABooking(String network) throws InterruptedException, IOException {
+        Quickstart quickstart = new Quickstart();
         HomePage homePage=new HomePage(driver);
         MyTripsPage myTripsPage=new MyTripsPage(driver);
         Utilities utilities = new Utilities(driver);
@@ -55,10 +62,69 @@ public class AddABookingTest extends Setup {
         //double value = Utilities.timeFormatter(diff);
         getLogs.stopLogs();
         data=getLogs.readData();
-        System.out.println("Data is"+data);
+        ArrayList<String>result=new ArrayList<>();
+        for(int i=0;i<data.size();i++){
+            if((data.get(i).contains("GET 'https://api.klm.com/travel/reservations/?bookingCode="))&(data.get(i).contains("AFNetworkActivityLogger"))){
+                result.add(data.get(i));
+
+            }
+            String re1=".*?";	// Non-greedy match on filler
+            String re2="(200 'https:\\/\\/api\\.klm\\.com\\/travel\\/reservations\\/((?:[a-z][a-z]*[0-9]+[a-z0-9]*))\\/')";	// Single Quote String 1
+
+            Pattern p = Pattern.compile(re1+re2,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+            Matcher m = p.matcher(data.get(i));
+            if (m.find())
+            {
+                String strng1=m.group(1);
+                //System.out.print("("+strng1.toString()+")"+"\n");
+                if(data.get(i).contains("AFNetworkActivityLogger")){
+                    result.add(data.get(i));
+                }
+
+            }
+
+        }
+        System.out.println("Result Data is"+result);
         System.out.println("Time in Seconds"+diff);
         System.out.println("Time taken for adding a booking"+value);
+        long startResponseTime=Utilities.responseTime(result.get(0));
+        long endResponseTime=Utilities.responseTime(result.get(1));
+        long responseTime=endResponseTime-startResponseTime;
+        Date timeStamp= new Date();
 
+        quickstart.appendValues(network,timeStamp,value,responseTime,value1);
+
+
+    }
+    @Test
+    public void goodNetwork() throws IOException, InterruptedException {
+        Utilities utilities = new Utilities(driver);
+        //utilities.setWifi(driver);
+        utilities.setNetwork(driver,utilities.getGoodNetwork());
+        addABooking(goodNetwork);
+
+
+
+
+    }
+
+    @Test
+    public void badNetwork() throws IOException, InterruptedException {
+        Utilities utilities = new Utilities(driver);
+        //utilities.setBadNetworkCondition(driver);
+        utilities.setNetwork(driver,utilities.getBadNetwork());
+        addABooking(badNetwork);
+
+
+
+    }
+
+    @Test
+    public void edgeNetwork() throws IOException, InterruptedException {
+        Utilities utilities = new Utilities(driver);
+        //utilities.setEdgeNetwork(driver);
+        utilities.setNetwork(driver,utilities.getEdgeNetwork());
+        addABooking(edgeNetwork);
 
     }
     protected boolean isElementPresent(By by) {

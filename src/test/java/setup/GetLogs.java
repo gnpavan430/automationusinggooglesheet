@@ -33,7 +33,7 @@ public class GetLogs {
 
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
+                //System.out.println(line);
                 if((line.contains("https://api") ||(line.contains("https://www.klm.com")) )){
                     data.add(line);
                    /* if(line.contains("PUT 'https://api.klm.com/travel/customers/1035428423/notification-subscriptions/installed-apps/")){

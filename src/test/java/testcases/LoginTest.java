@@ -112,7 +112,7 @@ public class LoginTest extends Setup {
     }
 
     @Test
-    public void badNetworkLogin() throws IOException, InterruptedException {
+    public void badNetwork() throws IOException, InterruptedException {
         Utilities utilities = new Utilities(driver);
         //utilities.setBadNetworkCondition(driver);
         utilities.setNetwork(driver,utilities.getBadNetwork());
