@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="First Test Suite">
+    <test name="SanityTest">
+       <classes>
+           <class>
+               Login.class
+           </class>
+       </classes>
+    </test>
+
+
+</suite>
