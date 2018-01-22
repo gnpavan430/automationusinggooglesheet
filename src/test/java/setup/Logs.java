@@ -93,6 +93,9 @@ import org.testng.annotations.Test;
 
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Logs {
     private String reportDirectory = "reports";
@@ -115,9 +118,16 @@ public class Logs {
     public void testUntitled() throws InterruptedException {
         //driver.executeScript("client:client.launch(\"com.klm.mobile.iphone.MCAR-iPhone\"),true,true");
         driver.executeScript("client:client.launch(\"com.klm.mobile.iphone.MCAR-iPhone\",true,true)");
-        Thread.sleep(8000);
-        driver.executeScript("experitest:client.runNativeAPICall(\"NATIVE\", \"xpath=//*[@id='video_view']\", 0, \"view.pause(); var length = view.getDuration(); length = length*0.9; view.seekTo(length);\");");
+        Thread.sleep(2000);
+       // driver.executeScript("experitest:client.runNativeAPICall(\"NATIVE\", \"xpath=//*[@id='video_view']\", 0, \"view.pause(); var length = view.getDuration(); length = length*0.9; view.seekTo(length);\");");
         //driver.findElement(By.xpath("//*[@accessibilityIdentifier='iconAddABooking']")).click();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        System.out.println("Before clicking the login button"+dateFormat.format(date)); //2016/11/16 12:08:43
+        driver.findElementByXPath("//*[@class='UIAView' and ./*[@text='Btm_Normal_Contact']]").click();
+        Date date1 = new Date();
+        System.out.println("After screen is loaded"+dateFormat.format(date1));
 
     }
 

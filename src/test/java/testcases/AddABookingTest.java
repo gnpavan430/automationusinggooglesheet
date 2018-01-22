@@ -21,11 +21,14 @@ import java.util.regex.Pattern;
 
 public class AddABookingTest extends Setup {
     public static ArrayList<String> data=new ArrayList<>();
+
     String goodNetwork="Good Network";
     String badNetwork="Bad Network";
     String edgeNetwork="Edge Network";
 
     public void addABooking(String network) throws InterruptedException, IOException {
+        //result.clear();
+        data.clear();
         Quickstart quickstart = new Quickstart();
         HomePage homePage=new HomePage(driver);
         MyTripsPage myTripsPage=new MyTripsPage(driver);
@@ -43,14 +46,15 @@ public class AddABookingTest extends Setup {
         else if(myTripsPage.addABookingActionButton().isDisplayed()){
             myTripsPage.addABookingActionButton().click();
         }
-        addABookingPage.bookingCode().sendKeys("RFQO8G ");
-        addABookingPage.lastName().sendKeys("QUINTAES");
-        myTripsPage.setBookingCode("RFQO8G");
+        addABookingPage.bookingCode().sendKeys("V4RVWU");
+        addABookingPage.lastName().sendKeys("SENARD");
+        myTripsPage.setBookingCode("V4RVWU");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         getLogs.startLogs();
-        Date date = new Date();
-        System.out.println("Before clicking the add a booking button"+dateFormat.format(date));
+
         addABookingPage.findYourBookingButton().click();
+        Date date = new Date();
+        System.out.println("Just after clicking the add a booking button"+dateFormat.format(date));
         Utilities.waitForElement(driver,myTripsPage.title());
         Date date1 = new Date();
         System.out.println("After adding booking date is"+date1);
@@ -63,13 +67,14 @@ public class AddABookingTest extends Setup {
         getLogs.stopLogs();
         data=getLogs.readData();
         ArrayList<String>result=new ArrayList<>();
+
         for(int i=0;i<data.size();i++){
             if((data.get(i).contains("GET 'https://api.klm.com/travel/reservations/?bookingCode="))&(data.get(i).contains("AFNetworkActivityLogger"))){
                 result.add(data.get(i));
 
             }
-            String re1=".*?";	// Non-greedy match on filler
-            String re2="(200 'https:\\/\\/api\\.klm\\.com\\/travel\\/reservations\\/((?:[a-z][a-z]*[0-9]+[a-z0-9]*))\\/')";	// Single Quote String 1
+          /*  String re1=".*?";	// Non-greedy match on filler
+            String re2="(200 'https:\\/\\/api\\.klm\\.com\\/travel\\/reservations\\/((?:[a-z][a-z]*[0-9]+[a-z0-9]*))\\/push-subscription-preference/')";	// Single Quote String 1
 
             Pattern p = Pattern.compile(re1+re2,Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
             Matcher m = p.matcher(data.get(i));
@@ -81,7 +86,10 @@ public class AddABookingTest extends Setup {
                     result.add(data.get(i));
                 }
 
-            }
+            }*/
+          if(data.get(i).contains("200 'https://api.klm.com/travel/reservations/?bookingCode=")&(data.get(i).contains("AFNetworkActivityLogger"))){
+              result.add(data.get(i));
+          }
 
         }
         System.out.println("Result Data is"+result);
@@ -90,9 +98,13 @@ public class AddABookingTest extends Setup {
         long startResponseTime=Utilities.responseTime(result.get(0));
         long endResponseTime=Utilities.responseTime(result.get(1));
         long responseTime=endResponseTime-startResponseTime;
+        long appTime=value-responseTime;
         Date timeStamp= new Date();
+        //result.clear();
+        System.out.println("After clearing Result data is"+result);
 
-        quickstart.appendValues(network,timeStamp,value,responseTime,value1);
+        quickstart.appendValuesAddABooking(network,timeStamp,value,appTime,responseTime);
+
 
 
     }

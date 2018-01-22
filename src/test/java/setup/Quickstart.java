@@ -189,7 +189,7 @@ public class Quickstart {
     public void appendValuesAddABooking(String network, Date timeStamp, long totalTime, long appTime, long responseTimeValue) throws IOException {
         String range=null;
         Sheets service = getSheetsService();
-        String spreadsheetId = "1Fap5e5uZvUeC1NjJJUr70ecTDHS7VcnS9iSphtZPxZE";
+        String spreadsheetId = "1HNxa-JWRlMMsgJBEIAUWpAWcVLFUTM-a4_JFoG0uHbU";
         long time=timeStamp.getTime();
         String timeString=timeStamp.toString();
         if(network.equalsIgnoreCase("Good Network")){
@@ -206,7 +206,7 @@ public class Quickstart {
         List<List<Object>> values = Arrays.asList(
                 Arrays.asList(
                         // Cell values ...
-                        timeString,loginTime,logoutTime,responseTimeValue
+                        timeString,totalTime,appTime,responseTimeValue
 
                 )
                 // Additional rows ...

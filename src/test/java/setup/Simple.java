@@ -3,8 +3,13 @@ package setup;
 import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.By;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Simple extends Setup {
-    public  String data="abcd";
+    /*public  String data="abcd";
 
     public  String getData() {
         return data;
@@ -17,5 +22,18 @@ public class Simple extends Setup {
 
     public void setData(String data) {
         this.data = data;
+    }*/
+    public static void main(String args[]) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        System.out.println("Date is"+date);
+        String dt=date.toString();
+
+        int dt1= Integer.parseInt(dt.substring(8,10));
+        System.out.println("date is"+dt1);
+
+       /* String date1 = String.valueOf(dateFormat.parse(String.valueOf(date)));
+        int dt = Integer.parseInt(date1);
+        System.out.println(dt);*/
     }
 }

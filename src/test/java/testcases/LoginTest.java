@@ -5,6 +5,8 @@ package testcases;//package <set your test package>;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.FlyingBlue;
 import pageobjects.LoginPage;
 import pageobjects.Profile;
@@ -165,7 +167,14 @@ public class LoginTest extends Setup {
 
         loginPage.login().click();
         loginPage.username().clear();
+        DateFormat dateFormat1 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date8 = new Date();
+
+        System.out.println("Before entering text"+dateFormat1.format(date8)); //2016/11/16 12:08:43
         loginPage.username().sendKeys(list.get(0).toString());
+        Date date9 = new Date();
+
+        System.out.println("After entering text"+dateFormat1.format(date9));
         loginPage.password().sendKeys(list.get(1).toString());
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -175,12 +184,16 @@ public class LoginTest extends Setup {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
+        loginPage.loginButton().click();
         Date date = new Date();
 
         System.out.println("Before clicking the login button"+dateFormat.format(date)); //2016/11/16 12:08:43
-        loginPage.loginButton().click();
 
-        Utilities.waitForElement(driver,flyingBlue.getFlyingBlueNumberText());
+
+       Utilities.waitForElement(driver,flyingBlue.getFlyingBlueNumberText());
+        //new WebDriverWait(driver, 300).until(ExpectedConditions.presenceOfElementLocated(flyingBlue.getFlyingBlueNumberText()));
 
 //        flyingBlue.flyingBlueNumberText().click();
         Date date1 = new Date();

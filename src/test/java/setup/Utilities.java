@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utilities {
@@ -39,6 +41,9 @@ public class Utilities {
 
     public static void waitForElement(IOSDriver<IOSElement> driver, By element){
         new WebDriverWait(driver, 300).until(ExpectedConditions.presenceOfElementLocated(element));
+       /* Date date=new Date();
+
+        System.out.println("Time after waiting"+date);*/
         // new WebDriverWait(driver,20).until(ExpectedConditions.visibilityOf(element));
 
 
@@ -46,6 +51,15 @@ public class Utilities {
 
 
 
+    }
+    public int currentDate(){
+        DateFormat dateFormat = new SimpleDateFormat("dd");
+        Date date = new Date();
+        System.out.println("Date is"+date);
+        String dt=date.toString();
+
+        int currentDate= Integer.parseInt(dt.substring(8,10));
+        return currentDate;
     }
     public static long responseTime(String date){
         int hours = Integer.parseInt(date.substring(7,9));

@@ -52,9 +52,11 @@
             </dependencies>
             <configuration>
                 <includes>
-
-                        <include>BookATrip.java</include>
                     <include>LoginTest.java</include>
+
+
+
+
 
 
 
