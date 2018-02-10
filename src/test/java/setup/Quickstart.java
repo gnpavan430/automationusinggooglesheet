@@ -76,7 +76,8 @@ public class Quickstart {
                 new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                         .setDataStoreFactory(DATA_STORE_FACTORY)
-                        .setAccessType("online")
+                        .setAccessType("offline")
+                        .setApprovalPrompt("none")
                         .build();
         Credential credential = new AuthorizationCodeInstalledApp(
                 flow, new LocalServerReceiver()).authorize("gnpavan430@gmail.com");

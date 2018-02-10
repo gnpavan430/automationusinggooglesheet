@@ -4,6 +4,7 @@ import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -103,6 +104,11 @@ public class Utilities {
 
 
         //driver.findElementByXPath("//*[@text='Edge' and @class='UIAView']").click();
+
+    }
+    public void swipeWhileNotFound(By element){
+        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, element, 1000, 5, true)");
+
 
     }
     public void setEdgeNetwork(IOSDriver driver){

@@ -9,10 +9,11 @@ public class MyTripsPage {
     public MyTripsPage(IOSDriver driver){
         this.driver=driver;
     }
-    By addABooking = By.xpath("//*[@text='Add a booking']");
-    By title = By.xpath("//*[@text='My trips' and ./parent::*[@class='UIANavigationBar']]");
+    By addABooking = By.xpath("//*[@accessibilityLabel='Add a booking' and @top='true']");
+    By title = By.xpath("//*[@text='My trips' and ./parent::*[@class='CoreAppRedesign.CustomNavigationBar']]");
 
-    By addABookingActionButton = By.xpath("(//*[@text='MyTripsView']/*[@class='UIAButton'])[2]");
+    By addABookingActionButton = By.xpath("//*[@accessibilityIdentifier='iconAddABooking']");
+    By myTripCardButton = By.xpath("//*[@accessibilityIdentifier='ic_s_arrow' and @top='true']");
     String newBookingCode;
     By bookingCodeText;
 
@@ -41,5 +42,8 @@ public class MyTripsPage {
     }
     public WebElement addABookingActionButton(){
         return driver.findElement(addABookingActionButton);
+    }
+    public WebElement myTripCardButton(){
+        return driver.findElement(myTripCardButton);
     }
 }

@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.bookATrip;
 
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
@@ -6,38 +6,31 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class BookATripPage {
+public class BookATripHomePage {
     IOSDriver driver;
-    public BookATripPage(IOSDriver driver){
+    public BookATripHomePage(IOSDriver driver){
         this.driver=driver;
 
     }
-    //By origin = By.xpath("//*[@accessibilityLabel='Origin' and @XCElementType='XCUIElementTypeStaticText']");
-    By origin = By.xpath("//*[@text='From']");
-    By destination = By.xpath("//*[@accessibilityLabel='Destination' and @XCElementType='XCUIElementTypeStaticText']");
-
-    By travelParty = By.xpath("//*[@text='1 adult in Economy Class']");
+    By origin = By.xpath("//*[@accessibilityIdentifier='Origin' and @top='true']");
+    By destination = By.xpath("//*[@accessibilityIdentifier='Destination' and @top='true']");
+    By travelParty = By.xpath("//*[contains(text(),'Class')]");
     By selectTravelDates = By.xpath("//*[@text='Select travel dates']");
-    By whereFrom=By.xpath("//*[@placeholder='where from?']");
-    By whereTo = By.xpath("//*[@placeholder='where to?']");
-    By originSearchResult=By.xpath("//*[@class='UIAView' and ./*[@text='Amsterdam']]");
-    By destinationSearchResult=By.xpath("//*[@class='UIAView' and ./*[@text='Barcelona']]");
-    By selectDepartureDateText = By.xpath("//*[@text='Select departure date']");
+    By whereFrom=By.xpath("//*[@accessibilityLabel='where from?']");
+    By whereTo = By.xpath("//*[@accessibilityLabel='where to?']");
+    By originSearchResult=By.xpath("//*[@text='Amsterdam']");
+    By destinationSearchResult=By.xpath("//*[@text='Bahrain']");
     By confirmDates = By.xpath("//*[@text='Confirm dates']");
-    By chooseOutboundFlightText=By.xpath("//*[@text='Choose an outbound flight']");
     By availableFlights = By.xpath("(//*[@class='UIATable']/*[@class='UIAView' and ./*[@class='UIAStaticText']])");
     By lightBrandedFare=By.xpath("//*[@text='Light']");
     By selectBrandedFareButton = By.xpath("//*[@text='Select']");
-
-
     public List<WebElement> availableFlights(){
         return driver.findElements(availableFlights);
     }
     public WebElement selectedFlight(int number){
-       return availableFlights().get(number);
+        return availableFlights().get(number);
 
     }
-
     public By lightBrandedFare(){
         return lightBrandedFare;
     }
@@ -55,9 +48,7 @@ public class BookATripPage {
 
 
 
-    public By selectDepartureDateText(){
-        return selectDepartureDateText;
-    }
+
 
     public WebElement origin(){
         return driver.findElement(origin);
@@ -99,5 +90,9 @@ public class BookATripPage {
     public WebElement confirmDatesButton(){
         return driver.findElement(confirmDates);
     }
+
+
+
+
 
 }

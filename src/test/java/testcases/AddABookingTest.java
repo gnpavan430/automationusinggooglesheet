@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import pageobjects.AddABookingPage;
 import pageobjects.HomePage;
 import pageobjects.MyTripsPage;
+import pageobjects.NewAddABookingPage;
 import setup.GetLogs;
 import setup.Quickstart;
 import setup.Setup;
@@ -33,7 +34,7 @@ public class AddABookingTest extends Setup {
         HomePage homePage=new HomePage(driver);
         MyTripsPage myTripsPage=new MyTripsPage(driver);
         Utilities utilities = new Utilities(driver);
-        AddABookingPage addABookingPage = new AddABookingPage(driver);
+        NewAddABookingPage addABookingPage = new NewAddABookingPage(driver);
         GetLogs getLogs=new GetLogs();
         homePage.myTrips().click();
         Thread.sleep(4000);

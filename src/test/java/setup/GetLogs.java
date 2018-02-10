@@ -68,6 +68,8 @@ public class GetLogs {
 
             /*RandomAccessFile raf = new RandomAccessFile(temp, "rw");
             raf.setLength(0);*/
+            QuickStartDrive quickStartDrive = new QuickStartDrive();
+            quickStartDrive.fileUpload();
             FileWriter fw = new FileWriter("D:\\Automation\\consolelogs.txt");
             PrintWriter pw = new PrintWriter(fw);
             pw.write("");

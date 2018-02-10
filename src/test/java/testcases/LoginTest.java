@@ -29,6 +29,7 @@ public class LoginTest extends Setup {
     String goodNetwork="Good Network";
     String badNetwork="Bad Network";
     String edgeNetwork="Edge Network";
+   public static String network;
     private List<Object> list;
 
    // private Sample sample;
@@ -106,7 +107,9 @@ public class LoginTest extends Setup {
         Utilities utilities = new Utilities(driver);
         //utilities.setWifi(driver);
         utilities.setNetwork(driver,utilities.getGoodNetwork());
+        network=goodNetwork;
         login(goodNetwork);
+
 
 
 
@@ -118,7 +121,9 @@ public class LoginTest extends Setup {
         Utilities utilities = new Utilities(driver);
         //utilities.setBadNetworkCondition(driver);
         utilities.setNetwork(driver,utilities.getBadNetwork());
+        network=badNetwork;
         login(badNetwork);
+
 
 
 
@@ -129,6 +134,7 @@ public class LoginTest extends Setup {
         Utilities utilities = new Utilities(driver);
         //utilities.setEdgeNetwork(driver);
         utilities.setNetwork(driver,utilities.getEdgeNetwork());
+        network=edgeNetwork;
         login(edgeNetwork);
 
     }
@@ -156,6 +162,7 @@ public class LoginTest extends Setup {
         Profile profile=new Profile(driver);
         flyingBlue.flyingBlue().click();
         GetLogs getLogs=new GetLogs();
+        QuickStartDrive quickStartDrive = new QuickStartDrive();
         //data=getLogs.readData();
        /* Quickstart quickstart = new Quickstart();
         List<List<Object>> values = quickstart.dataFromSheet();
@@ -230,11 +237,11 @@ public class LoginTest extends Setup {
        ArrayList<String> result = new ArrayList<String>();
        System.out.println("Total data is"+data);
        for(int i=0;i<data.size();i++){
-           if((data.get(i).contains("POST 'https://www.klm.com/oauthcust/oauth/token'"))&(data.get(i).contains("AFNetworkActivityLogger"))){
+           if((data.get(i).contains("POST 'https://www.klm.com/oauthcust/oauth/token'"))&(data.get(i).contains("CocoaLumberjack"))){
                result.add(data.get(i));
 
            }
-           if((data.get(i).contains("200 'https://api.klm.com/travel/reservations/?historical=true' "))&(data.get(i).contains("AFNetworkActivityLogger"))){
+           if((data.get(i).contains("200 'https://api.klm.com/travel/reservations/?historical=true' "))&(data.get(i).contains("CocoaLumberjack"))){
                result.add(data.get(i));
            }
        }
@@ -326,6 +333,8 @@ public class LoginTest extends Setup {
             /*RandomAccessFile raf = new RandomAccessFile(temp, "rw");
             raf.setLength(0);*/
             FileWriter fw = new FileWriter("D:\\Automation\\consolelogs.txt");
+            QuickStartDrive quickStartDrive = new QuickStartDrive();
+            //quickStartDrive.fileUpload(network,new Date());
             PrintWriter pw = new PrintWriter(fw);
             pw.write("");
             pw.flush();
