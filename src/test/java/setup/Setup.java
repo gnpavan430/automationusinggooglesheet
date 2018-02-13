@@ -10,13 +10,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-
+import Utilities.JUnitTestReporter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class Setup {
+public class Setup extends JUnitTestReporter {
     public static IOSDriver<IOSElement> driver;
 
     static DesiredCapabilities dc = new DesiredCapabilities();

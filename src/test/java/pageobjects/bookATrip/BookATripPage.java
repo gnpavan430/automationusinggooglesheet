@@ -26,8 +26,10 @@ public class BookATripPage {
     By confirmDates = By.xpath("//*[@text='Confirm dates']");
     By chooseOutboundFlightText=By.xpath("//*[@text='Choose an outbound flight']");
     By availableFlights = By.xpath("//*[@class='UIView' and @width>0 and @height>0 and ./*[@text='11:20'] and ./*[@text='AMS'] and ./*[@text='06:50']]");
-    By lightBrandedFare=By.xpath("//*[@text='Light']");
-    By selectBrandedFareButton = By.xpath("//*[@class='CoreAppRedesign.KLMAppButton' and ./preceding-sibling::*[@text='Light']]");
+    By lightBrandedFare=By.xpath("//*[@text='LIGHT']");
+    By standardBrandedFare =By.xpath("//*[@text='STANDARD']");
+    By flexBrandedFare =By.xpath("//*[@text='STANDARD']");
+    By selectBrandedFareButton = By.xpath("//*[@class='CoreAppRedesign.KLMAppButton' and ./preceding-sibling::*[@text='LIGHT']]");
     By chooseReturnFlightText=By.xpath("//*[@text='Choose a return flight']");
     By returnAvailableFlights = By.xpath("//*[@class='UIView' and @width>0 and @height>0 and ./*[@text='Direct'] and ./*[@text='BCN']]");
     By returnSelectBrandedFareButton = By.xpath("//*[@text='Select']");

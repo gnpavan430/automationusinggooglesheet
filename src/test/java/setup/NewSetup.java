@@ -8,12 +8,20 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
+import Utilities.JUnitTestReporter;
 
 import java.io.IOException;
+import java.lang.Math;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class NewSetup {
@@ -38,6 +46,39 @@ public class NewSetup {
 
 
     }
+
+/*    @Rule
+    public TestRule junitWatcher = new TestWatcher() {
+
+
+        @Override
+        public Statement apply(Statement base, Description description) {
+            return super.apply(base, description);
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            System.out.println("Test passed");
+            System.out.println("Passed Screenshot name is"+"PassedScreenshot"+ java.lang.Math.random());
+            Utilities.captureScreenshot(driver,"PassedScreenshot"+ java.lang.Math.random());
+
+            System.out.println(description.getDisplayName() + " "
+                    + "Test Passed!");
+        }
+
+        @Override
+        protected void failed(Throwable e, Description description) {
+            System.out.println("Test failed");
+            Date date = new Date();
+            System.out.println("Failed Screenshot name is"+"FailedScreenshot"+ java.lang.Math.random());
+
+            Utilities.captureScreenshot(driver,"FailedScreenshot"+ Math.random());
+
+
+            System.out.println(description.getDisplayName() + " "
+                    + e.getClass().getSimpleName());
+        }
+    };*/
     @BeforeClass
     public static void startAppiumStudioServer() throws IOException, InterruptedException {
         Runtime.getRuntime().exec("C:\\Users\\X085271\\Desktop\\appiumstudio.bat");

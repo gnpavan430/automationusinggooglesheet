@@ -3,18 +3,19 @@ package setup;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utilities {
-    IOSDriver driver;
+   static IOSDriver driver;
     public Utilities(){
 
     }
@@ -110,6 +111,38 @@ public class Utilities {
         driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, element, 1000, 5, true)");
 
 
+    }
+    public static void swipe(){
+        driver.executeScript("client:client.swipe(\"Down\", 400, 500)");
+
+    }
+    public boolean checkElementVisibility( By xpath) {
+        try {
+            driver.findElement(xpath);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+    public static void captureScreenshot( WebDriver driver,String screenshotName)
+    {
+
+        try
+        {
+            TakesScreenshot ts=(TakesScreenshot)driver;
+
+            File source=ts.getScreenshotAs(OutputType.FILE);
+
+            FileUtils.copyFile(source, new File("./Screenshots/"+screenshotName+".png"));
+
+            System.out.println("Screenshot taken");
+        }
+        catch (Exception e)
+        {
+
+            System.out.println("Exception while taking screenshot "+e.getMessage());
+        }
     }
     public void setEdgeNetwork(IOSDriver driver){
         driver.getKeyboard().sendKeys("\"{HOME}\"");

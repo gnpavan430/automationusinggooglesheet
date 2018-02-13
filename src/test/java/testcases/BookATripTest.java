@@ -1,6 +1,7 @@
 package testcases;
 
 
+import org.junit.After;
 import org.junit.Test;
 
 import pageobjects.HomePage;
@@ -9,8 +10,9 @@ import pageobjects.bookATrip.PersonalDetails;
 import setup.NewSetup;
 import setup.Setup;
 import setup.Utilities;
+import Utilities.JUnitTestReporter;
 
-public class BookATripTest extends NewSetup {
+public class BookATripTest extends JUnitTestReporter {
     @Test
     public void bookATrip() throws InterruptedException {
         //BookATripPage bookATripPage = new BookATripPage(driver);
@@ -43,7 +45,11 @@ public class BookATripTest extends NewSetup {
         bookATripPage.returnAvailableOffers().click();
         bookATripPage.returnSelectedBrandedFareButton().click();
         Utilities.waitForElement(driver,personalDetails.personalDetailsText());
-        utilities.swipeWhileNotFound(personalDetails.getTitle());
+        personalDetails.personalDetails().click();
+        while((utilities.checkElementVisibility(personalDetails.getTitle()))!=true){
+         Utilities.swipe();
+        }
+        personalDetails.title().click();
 
 
 
@@ -54,4 +60,5 @@ public class BookATripTest extends NewSetup {
 
 
     }
+
 }

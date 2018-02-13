@@ -2,6 +2,7 @@ package pageobjects.bookATrip;
 
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class PersonalDetails {
     IOSDriver driver;
@@ -18,6 +19,9 @@ public class PersonalDetails {
 
     public By getTitle() {
         return title;
+    }
+    public WebElement title(){
+        return driver.findElement(title);
     }
 
     public By getFirstName() {
@@ -52,6 +56,9 @@ public class PersonalDetails {
     }
 
     By flyingBlueNumber = By.xpath("//*[@text='frequent flyer number' and @visible='true']");
+    public WebElement personalDetails(){
+        return driver.findElement(personalDetailsText);
+    }
 
 
 
