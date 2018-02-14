@@ -10,6 +10,14 @@ public class TripDetails {
         this.driver=driver;
     }
     By addToCalendarButton = By.xpath("//*[@accessibilityIdentifier='ic_s_add_calendar' and @parentHidden='true']");
+    public By flightNumberElement(String flightNumber){
+        String flightNumberLocator = "(//*[@class='UIACollectionView']/*/*/*[@text='flightNumber'])[1]";
+        String newFlightNumberLocator = flightNumberLocator.replace("flightNumber",flightNumber);
+        //String newDate = oldDate.replace("date",Integer.toString(date));
+        By flightNumberElement = By.xpath(newFlightNumberLocator);
+        return flightNumberElement;
+    }
+
     public WebElement addToCalendarButton(){
         return driver.findElement(addToCalendarButton);
     }

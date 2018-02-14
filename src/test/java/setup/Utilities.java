@@ -107,8 +107,9 @@ public class Utilities {
         //driver.findElementByXPath("//*[@text='Edge' and @class='UIAView']").click();
 
     }
-    public void swipeWhileNotFound(By element){
-        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, element, 1000, 5, true)");
+    public static void swipeWhileNotFound(By element){
+        //driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, element, 1000, 5, true)");
+        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000,\"//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL867  |' and @visible='true']\", 1000, 5, true)");
 
 
     }

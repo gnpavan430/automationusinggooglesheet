@@ -36,6 +36,7 @@ public class FlightStatusTest extends NewSetup {
         NewAddABookingPage addABookingPage = new NewAddABookingPage(driver);
         FileUtilities fileUtilities = new FileUtilities();
         System.out.println("Previous flight from response is "+previousFlightStatus);
+        //For the first time PreviousFlightStatus is taken as String variable. From next time onwards data is read from the file "Published Status"
         fileUtilities.flightStatusChange(previousFlightStatus,flightStatus);
 
         //GetLogs getLogs=new GetLogs();
@@ -53,14 +54,14 @@ public class FlightStatusTest extends NewSetup {
         Thread.sleep(8000);
         addABookingPage.bookingCode().click();
         //addABookingPage.bookingCode().sendKeys("KXAKXW");
-        driver.getKeyboard().sendKeys("PTC5XR");
+        driver.getKeyboard().sendKeys("W4WTLJ");
 
         Thread.sleep(4000);
         addABookingPage.lastName().click();
-        driver.getKeyboard().sendKeys("EVERWIJN");
+        driver.getKeyboard().sendKeys("JENSEN");
 
         //addABookingPage.lastName().sendKeys("LOU");
-        myTripsPage.setBookingCode("PTC5XR");
+        myTripsPage.setBookingCode("W4WTLJ");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         //getLogs.startLogs();
 
@@ -76,6 +77,7 @@ public class FlightStatusTest extends NewSetup {
 //        String text = driver.findElementByXPath("//*[@text='Mon 05 Feb' and ./following-sibling::*[@text='10:20']]").getText();
         //System.out.println("Extracted text is"+text);
         Utilities.waitForElement(driver,tripDetails.getAddToCalendarButton());
+        Utilities.swipeWhileNotFound(tripDetails.flightNumberElement("KL867"));
         String flightStatus= driver.findElementByXPath("//*[@accessibilityIdentifier='flight_status_label' and @hidden='false' and @onScreen='true' and @visible='true' and @top='true']").getText();
         System.out.println("Extracted text is"+flightStatus);
         previousFlightStatus=fileUtilities.pubilshStatus();
@@ -97,6 +99,7 @@ public class FlightStatusTest extends NewSetup {
         return list;
 
     }*/
+   //List of flight status that needs to be verified
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {{ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" }});
