@@ -38,6 +38,7 @@ public class FlightStatusTest extends NewSetup {
         System.out.println("Previous flight from response is "+previousFlightStatus);
         //For the first time PreviousFlightStatus is taken as String variable. From next time onwards data is read from the file "Published Status"
         fileUtilities.flightStatusChange(previousFlightStatus,flightStatus);
+        Thread.sleep(120000);
 
         //GetLogs getLogs=new GetLogs();
         homePage.myTrips().click();
