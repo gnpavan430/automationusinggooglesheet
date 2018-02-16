@@ -46,9 +46,10 @@ public class BookATripTest extends JUnitTestReporter {
         bookATripPage.returnSelectedBrandedFareButton().click();
         Utilities.waitForElement(driver,personalDetails.personalDetailsText());
         personalDetails.personalDetails().click();
-        while((utilities.checkElementVisibility(personalDetails.getTitle()))!=true){
+        /*while((utilities.checkElementVisibility(personalDetails.getTitle()))!=true){
          Utilities.swipe();
-        }
+        }*/
+        Utilities.swipeWhileNotFound(personalDetails.getTitle());
         personalDetails.title().click();
 
 

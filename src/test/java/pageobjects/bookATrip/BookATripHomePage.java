@@ -24,6 +24,7 @@ public class BookATripHomePage {
     By availableFlights = By.xpath("(//*[@class='UIATable']/*[@class='UIAView' and ./*[@class='UIAStaticText']])");
     By lightBrandedFare=By.xpath("//*[@text='Light']");
     By selectBrandedFareButton = By.xpath("//*[@text='Select']");
+    By noThanksButton=By.xpath("//*[@text='No thanks']");
     public List<WebElement> availableFlights(){
         return driver.findElements(availableFlights);
     }
@@ -44,6 +45,7 @@ public class BookATripHomePage {
     public WebElement selectBrandedFareButton(){
         return driver.findElement(selectBrandedFareButton);
     }
+
 
 
 

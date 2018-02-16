@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Parameterized.class)
 public class FlightStatusTest extends NewSetup {
     String flightStatus,displayedStatus;
-    public static String previousFlightStatus="INTRANSIT";
+    //public static String previousFlightStatus="ONTIME";
     public FlightStatusTest(String flightStatus,String displayedStatus){
         this.flightStatus=flightStatus;
         this.displayedStatus=displayedStatus;
@@ -35,6 +35,7 @@ public class FlightStatusTest extends NewSetup {
         TripDetails tripDetails = new TripDetails(driver);
         NewAddABookingPage addABookingPage = new NewAddABookingPage(driver);
         FileUtilities fileUtilities = new FileUtilities();
+        String previousFlightStatus = fileUtilities.pubilshStatus();
         System.out.println("Previous flight from response is "+previousFlightStatus);
         //For the first time PreviousFlightStatus is taken as String variable. From next time onwards data is read from the file "Published Status"
         fileUtilities.flightStatusChange(previousFlightStatus,flightStatus);
@@ -55,14 +56,14 @@ public class FlightStatusTest extends NewSetup {
         Thread.sleep(8000);
         addABookingPage.bookingCode().click();
         //addABookingPage.bookingCode().sendKeys("KXAKXW");
-        driver.getKeyboard().sendKeys("W4WTLJ");
+        driver.getKeyboard().sendKeys("W7MB6H");
 
         Thread.sleep(4000);
         addABookingPage.lastName().click();
-        driver.getKeyboard().sendKeys("JENSEN");
+        driver.getKeyboard().sendKeys("SHOP");
 
         //addABookingPage.lastName().sendKeys("LOU");
-        myTripsPage.setBookingCode("W4WTLJ");
+        myTripsPage.setBookingCode("W7MB6H");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         //getLogs.startLogs();
 
@@ -78,12 +79,12 @@ public class FlightStatusTest extends NewSetup {
 //        String text = driver.findElementByXPath("//*[@text='Mon 05 Feb' and ./following-sibling::*[@text='10:20']]").getText();
         //System.out.println("Extracted text is"+text);
         Utilities.waitForElement(driver,tripDetails.getAddToCalendarButton());
-        Utilities.swipeWhileNotFound(tripDetails.flightNumberElement("KL867"));
+        //Utilities.swipeWhileNotFound(tripDetails.flightNumberElement("KL1681"));
         String flightStatus= driver.findElementByXPath("//*[@accessibilityIdentifier='flight_status_label' and @hidden='false' and @onScreen='true' and @visible='true' and @top='true']").getText();
         System.out.println("Extracted text is"+flightStatus);
         previousFlightStatus=fileUtilities.pubilshStatus();
         System.out.println("PublishedStatus is"+previousFlightStatus);
-        assertTrue(flightStatus.equalsIgnoreCase(fileUtilities.pubilshStatus()));
+        assertTrue(flightStatus.equalsIgnoreCase(displayedStatus));
     }
    /* @Parameterized.Parameters
     public static List<Object> data1() throws IOException {

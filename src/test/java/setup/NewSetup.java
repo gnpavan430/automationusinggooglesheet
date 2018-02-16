@@ -37,7 +37,7 @@ public class NewSetup {
         //dc.setCapability(MobileCapabilityType.UDID, "d65cf8b56bc43982a82c36b879224df86d0e30a7");
         dc.setCapability(MobileCapabilityType.UDID, "67e48a029ef2918109bbd2011bd3c6b4497f2eae");
         dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.klm.mobile.iphone.MCAR-iPhone");
-        dc.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT,120);
+        dc.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT,180);
         dc.setCapability("instrumentApp", true);
         driver = new IOSDriver<IOSElement>(new URL("http://localhost:4723/wd/hub"), dc);
         driver.executeScript("client:client.launch(\"com.klm.mobile.iphone.MCAR-iPhone\", \"false\", \"true\")");

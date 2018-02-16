@@ -109,8 +109,10 @@ public class Utilities {
     }
     public static void swipeWhileNotFound(By element){
         //driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, element, 1000, 5, true)");
-        String elementToFind="//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL1133  |' and @visible='true']";
-        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, \"NATIVE\", \"xpath=//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL1133  |' and @visible='true']\", 0, 1000, 5, true)");
+        //String elementToFind="//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL1133  |' and @visible='true']";
+        //driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, \"NATIVE\", \"xpath=//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL1133  |' and @visible='true']\", 0, 1000, 5, true)");
+        String elementToFind = "xpath="+element;
+        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, \"NATIVE\", elementToFind, 0, 1000, 5, true)");
 
 
     }

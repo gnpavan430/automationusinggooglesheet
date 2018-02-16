@@ -90,7 +90,7 @@ public class FileUtilities {
 
  }
  public String pubilshStatus() throws IOException {
-     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\KL887flightStatuResponse.txt");
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
      Charset charset = StandardCharsets.UTF_8;
 
      String content = new String(Files.readAllBytes(path), charset);
@@ -102,6 +102,7 @@ public class FileUtilities {
      JSONArray jsonArray = obj.getJSONArray("flightLegs");
      JSONObject obj2 = jsonArray.getJSONObject(0);
      String value = obj2.getString("publishedStatus");
+     System.out.println("Value of flightStatus from sheet is"+value);
      return value;
 
 
@@ -109,11 +110,11 @@ public class FileUtilities {
  public void flightStatusChange(String previousFlightStatus,String newFlightStatus) throws IOException {
      int contentLength = 0;
      int diff = newFlightStatus.length()-previousFlightStatus.length();
-     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\KL887flightStatuResponse.txt");
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
      Charset charset = StandardCharsets.UTF_8;
 
      String content = new String(Files.readAllBytes(path), charset);
-     FileReader reader = new FileReader("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1134flightstatus.txt");
+     FileReader reader = new FileReader("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
      BufferedReader bufferedReader = new BufferedReader(reader);
      String line;
      while((line=bufferedReader.readLine())!=null){
@@ -121,9 +122,9 @@ public class FileUtilities {
          // System.out.println("After replacing content");
          //System.out.println(content);
          if(line.contains("Content-Length:")){
-             /*System.out.println("Content length line is"+line);
-             System.out.println(line.substring(16,20));*/
-             contentLength= Integer.parseInt(line.substring(16,20));
+             //System.out.println("Content length line is"+line);
+             System.out.println(line.substring(16,(line.length())));
+             contentLength= Integer.parseInt(line.substring(16,(line.length())));
          }
 
      }
