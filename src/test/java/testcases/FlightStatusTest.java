@@ -1,14 +1,19 @@
 package testcases;
 
-import org.junit.Test;
+/*import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized;*/
 import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 import pageobjects.*;
 import setup.GetLogs;
 import setup.NewSetup;
 import setup.Quickstart;
 import setup.Utilities;
+
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -17,17 +22,24 @@ import java.util.*;
 
 import Utilities.FileUtilities;
 
-import static org.junit.Assert.assertTrue;
-@RunWith(Parameterized.class)
+//import static org.junit.Assert.assertTrue;
+
+
+
+
 public class FlightStatusTest extends NewSetup {
     String flightStatus,displayedStatus;
     //public static String previousFlightStatus="ONTIME";
-    public FlightStatusTest(String flightStatus,String displayedStatus){
+   /* public FlightStatusTest(String flightStatus,String displayedStatus){
         this.flightStatus=flightStatus;
         this.displayedStatus=displayedStatus;
-    }
-    @Test
-    public void flightStatusTest() throws InterruptedException, IOException {
+
+    }*/
+
+    //@Parameters({ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" })
+    @Test(dataProvider="data")
+    public void flightStatusTest(String flightStatus,String displayedStatus) throws InterruptedException, IOException {
+
         Quickstart quickstart = new Quickstart();
         HomePage homePage=new HomePage(driver);
         MyTripsPage myTripsPage=new MyTripsPage(driver);
@@ -56,14 +68,14 @@ public class FlightStatusTest extends NewSetup {
         Thread.sleep(8000);
         addABookingPage.bookingCode().click();
         //addABookingPage.bookingCode().sendKeys("KXAKXW");
-        driver.getKeyboard().sendKeys("W7MB6H");
+        driver.getKeyboard().sendKeys("WCL2Q8");
 
         Thread.sleep(4000);
         addABookingPage.lastName().click();
         driver.getKeyboard().sendKeys("SHOP");
 
         //addABookingPage.lastName().sendKeys("LOU");
-        myTripsPage.setBookingCode("W7MB6H");
+        myTripsPage.setBookingCode("WCL2Q8");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         //getLogs.startLogs();
 
@@ -80,11 +92,13 @@ public class FlightStatusTest extends NewSetup {
         //System.out.println("Extracted text is"+text);
         Utilities.waitForElement(driver,tripDetails.getAddToCalendarButton());
         //Utilities.swipeWhileNotFound(tripDetails.flightNumberElement("KL1681"));
-        String flightStatus= driver.findElementByXPath("//*[@accessibilityIdentifier='flight_status_label' and @hidden='false' and @onScreen='true' and @visible='true' and @top='true']").getText();
+        String flightStatusText= driver.findElementByXPath("//*[@accessibilityIdentifier='flight_status_label' and @hidden='false' and @onScreen='true' and @visible='true' and @top='true']").getText();
         System.out.println("Extracted text is"+flightStatus);
         previousFlightStatus=fileUtilities.pubilshStatus();
         System.out.println("PublishedStatus is"+previousFlightStatus);
-        assertTrue(flightStatus.equalsIgnoreCase(displayedStatus));
+        System.out.println("Flight status in app is"+flightStatusText);
+        //assertTrue(flightStatus.equalsIgnoreCase(displayedStatus));
+        Assert.assertEquals(flightStatusText,displayedStatus);
     }
    /* @Parameterized.Parameters
     public static List<Object> data1() throws IOException {
@@ -102,9 +116,14 @@ public class FlightStatusTest extends NewSetup {
 
     }*/
    //List of flight status that needs to be verified
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {{ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" }});
+
+    @DataProvider(name = "data")
+    public static Object[][] data() {
+        return new Object[][]{
+                { "EARLY_ARRIVAL","Early arrival" }, {"DELAYED_ARRIVAL","Delayed arrival" }, { "EARLY_DEPARTURE","Early departure"}, { "DELAYED_DEPARTURE","Delayed departure" }
+
+        };
+        //return Arrays.asList(new Object[][] {{ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" }});
     }
     protected boolean isElementPresent(By by) {
         boolean isElement = false;

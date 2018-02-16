@@ -5,7 +5,7 @@ import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-import org.junit.After;
+/*import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -13,9 +13,10 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.runners.model.Statement;*/
 import org.openqa.selenium.remote.DesiredCapabilities;
 import Utilities.JUnitTestReporter;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.lang.Math;
@@ -30,7 +31,7 @@ public class NewSetup {
     static DesiredCapabilities dc = new DesiredCapabilities();
 
 
-    @Before
+    @BeforeMethod
     public void  setUp() throws MalformedURLException {
 
         //dc.setCapability(MobileCapabilityType.UDID, "67e48a029ef2918109bbd2011bd3c6b4497f2eae");
@@ -79,7 +80,7 @@ public class NewSetup {
                     + e.getClass().getSimpleName());
         }
     };*/
-    @BeforeClass
+
     public static void startAppiumStudioServer() throws IOException, InterruptedException {
         Runtime.getRuntime().exec("C:\\Users\\X085271\\Desktop\\appiumstudio.bat");
         Thread.sleep(30000);
@@ -99,7 +100,7 @@ public class NewSetup {
         }
         return driver1;
     }
-    @After
+    @AfterMethod
     public void teardown(){
         driver.quit();
     }
