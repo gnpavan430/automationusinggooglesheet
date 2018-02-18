@@ -4,6 +4,8 @@ import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class TripDetails {
     IOSDriver driver;
     public TripDetails(IOSDriver driver){
@@ -17,6 +19,12 @@ public class TripDetails {
         By flightNumberElement = By.xpath(newFlightNumberLocator);
         return flightNumberElement;
     }
+    public By backButton = By.xpath("//*[@accessibilityIdentifier='ic_back_w' and @top='true']");
+    public WebElement backButton(){
+        return driver.findElement(backButton);
+    }
+
+
 
     public WebElement addToCalendarButton(){
         return driver.findElement(addToCalendarButton);

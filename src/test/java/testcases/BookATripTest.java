@@ -1,26 +1,36 @@
 package testcases;
 
 
+/*
 import org.junit.After;
 import org.junit.Test;
+*/
 
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import pageobjects.HomePage;
+import pageobjects.bookATrip.BookATripHomePage;
 import pageobjects.bookATrip.BookATripPage;
 import pageobjects.bookATrip.PersonalDetails;
 import setup.NewSetup;
 import setup.Setup;
 import setup.Utilities;
-import Utilities.JUnitTestReporter;
+import Utilities.GenerateReport;
+//import Utilities.JUnitTestReporter;
 
-public class BookATripTest extends JUnitTestReporter {
+public class BookATripTest extends NewSetup {
     @Test
     public void bookATrip() throws InterruptedException {
         //BookATripPage bookATripPage = new BookATripPage(driver);
+     BookATripHomePage bookATripHomePage = new BookATripHomePage(driver);
+
        BookATripPage bookATripPage = new BookATripPage(driver);
         Utilities utilities = new Utilities();
         PersonalDetails personalDetails = new PersonalDetails(driver);
         HomePage homePage = new HomePage(driver);
         homePage.bookATrip().click();
+        bookATripHomePage.noThanksButton().click();
+
 
         bookATripPage.origin().click();
 

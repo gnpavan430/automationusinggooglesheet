@@ -4,6 +4,8 @@ import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class MyTripsPage {
     IOSDriver driver;
     public MyTripsPage(IOSDriver driver){
@@ -16,6 +18,10 @@ public class MyTripsPage {
     By myTripCardButton = By.xpath("//*[@accessibilityIdentifier='ic_s_arrow' and @top='true']");
     String newBookingCode;
     By bookingCodeText;
+    public By myTripTitle(){
+        return title;
+
+    }
 
     public void setBookingCode(String booking){
         String bookingCode="//*[@text='Booking code RFQO8G']";
@@ -23,12 +29,18 @@ public class MyTripsPage {
          bookingCodeText=By.xpath(newBookingCode);
 
     }
+    public WebElement flightStatusMyTrips(){
+        List<WebElement> flightStatusMyTripsElement= driver.findElements(flightStatusMyTrips);
+        return flightStatusMyTripsElement.get(1);
+    }
     public WebElement myTripsTitle(){
         return driver.findElement(title);
     }
     public By title(){
         return title;
     }
+    public By flightStatusMyTrips = By.xpath("//*[@accessibilityIdentifier='flightstatusID' and @visible='true']");
+
 
 
     public By bookingCode(){

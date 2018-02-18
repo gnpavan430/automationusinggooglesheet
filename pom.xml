@@ -86,6 +86,11 @@
             <version>20171018</version>
         </dependency>
         <dependency>
+            <groupId>com.relevantcodes</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>2.40.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-sheets</artifactId>
             <version>v4-rev492-1.23.0</version>
@@ -113,6 +118,11 @@
             <artifactId>testng</artifactId>
             <version>6.9.8</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.13.1</version>
         </dependency>
     </dependencies>
 
