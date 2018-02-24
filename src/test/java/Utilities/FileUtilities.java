@@ -107,6 +107,25 @@ public class FileUtilities {
 
 
  }
+ public String latestPublishedDepartureTime() throws IOException {
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
+     Charset charset = StandardCharsets.UTF_8;
+
+     String content = new String(Files.readAllBytes(path), charset);
+     String answer = content.substring(content.indexOf("{"),content.lastIndexOf("}"));
+     /*System.out.println("Extracted content is--------------------------------------------");
+     System.out.println(answer);*/
+     String json = answer+"}";
+     JSONObject obj = new JSONObject(json);
+     JSONArray jsonArray = obj.getJSONArray("flightLegs");
+     JSONObject obj2 = jsonArray.getJSONObject(0);
+     JSONObject obj3 = obj2.getJSONObject("departureInformation");
+     JSONObject obj4 = obj3.getJSONObject("times");
+     String latestPublishedDepartureTime=obj4.getString("latestPublished");
+     System.out.println("Value of flightStatus from sheet is"+latestPublishedDepartureTime);
+     return latestPublishedDepartureTime;
+
+ }
  public void flightStatusChange(String previousFlightStatus,String newFlightStatus) throws IOException {
      int contentLength = 0;
      int diff = newFlightStatus.length()-previousFlightStatus.length();

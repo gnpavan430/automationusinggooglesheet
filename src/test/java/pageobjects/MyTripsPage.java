@@ -29,6 +29,11 @@ public class MyTripsPage {
          bookingCodeText=By.xpath(newBookingCode);
 
     }
+    public WebElement myTripFlightStatus(String displayStatus){
+        String xpath = "//*[@text='flightStatus' and @top='true']";
+        String newXpath=xpath.replace("flightStatus",displayStatus);
+        return driver.findElementByXPath(newXpath);
+    }
     public WebElement flightStatusMyTrips(){
         List<WebElement> flightStatusMyTripsElement= driver.findElements(flightStatusMyTrips);
         return flightStatusMyTripsElement.get(1);

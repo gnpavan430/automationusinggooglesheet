@@ -56,8 +56,8 @@ public class FlightStatusTest extends NewSetup {
         extent = new ExtentReports (System.getProperty("user.dir") +"/ExtentReport/Report"+dateName+".html", true);
         //extent.addSystemInfo("Environment","Environment Name")
         extent
-                .addSystemInfo("Host Name", "SoftwareTestingMaterial")
-                .addSystemInfo("Environment", "Automation Testing");
+                .addSystemInfo("Host Name", "FlightStatusAutomation")
+                .addSystemInfo("Environment", "Test");
         //loading the external xml file (i.e., extent-config.xml) which was placed under the base directory
         //You could find the xml file below. Create xml file in your project and copy past the code mentioned below
         extent.loadConfig(new File(System.getProperty("user.dir")+"\\extent-config.xml"));
@@ -77,6 +77,7 @@ public class FlightStatusTest extends NewSetup {
         String previousFlightStatus = fileUtilities.pubilshStatus();
         System.out.println("Previous flight from response is "+previousFlightStatus);
         //For the first time PreviousFlightStatus is taken as String variable. From next time onwards data is read from the file "Published Status"
+        Thread.sleep(120000);
         fileUtilities.flightStatusChange(previousFlightStatus,flightStatus);
         Thread.sleep(2000);
 
@@ -103,18 +104,19 @@ public class FlightStatusTest extends NewSetup {
             logger.log(LogStatus.PASS, "Navigated to Add Booking Page");
             //String screenshotPath = FlightStatusTest.getScreenshot(driver,"My Trips Page");
             logger.log(LogStatus.PASS, logger.addScreenCapture(FlightStatusTest.getScreenshot(driver,"Add Booking Page")));
+
         }
         Thread.sleep(8000);
         addABookingPage.bookingCode().click();
         //addABookingPage.bookingCode().sendKeys("KXAKXW");
-        driver.getKeyboard().sendKeys("WP3PIU");
+        driver.getKeyboard().sendKeys("WTET29");
 
         Thread.sleep(4000);
         addABookingPage.lastName().click();
-        driver.getKeyboard().sendKeys("LAST");
+        driver.getKeyboard().sendKeys("SHOP");
 
         //addABookingPage.lastName().sendKeys("LOU");
-        myTripsPage.setBookingCode("WP3PIU");
+        myTripsPage.setBookingCode("WTET29");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         //getLogs.startLogs();
 
@@ -151,6 +153,14 @@ public class FlightStatusTest extends NewSetup {
         logger.log(LogStatus.PASS, "Flight Status Updated Correctly:"+displayedStatus);
         //String screenshotPath = FlightStatusTest.getScreenshot(driver,"My Trips Page");
         logger.log(LogStatus.PASS, logger.addScreenCapture(FlightStatusTest.getScreenshot(driver,"Flight Status Updated Correctly")));
+        tripDetails.backButton().click();
+        Utilities.waitForElement(driver,myTripsPage.title());
+        logger.log(LogStatus.PASS, logger.addScreenCapture(FlightStatusTest.getScreenshot(driver,"App navigated to back to MyTrips screen")));
+        String myTripsFlightStatusText=myTripsPage.myTripFlightStatus(displayedStatus).getText();
+        Assert.assertEquals(myTripsFlightStatusText,displayedStatus);
+        logger.log(LogStatus.PASS, "Flight Status Updated Correctly in My Trips screen:"+displayedStatus);
+        logger.log(LogStatus.PASS, logger.addScreenCapture(FlightStatusTest.getScreenshot(driver,"Flight Status Updated Correctly in MyTrips")));
+
     }
    /* @Parameterized.Parameters
     public static List<Object> data1() throws IOException {
@@ -183,7 +193,7 @@ public class FlightStatusTest extends NewSetup {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         //after execution, you could see a folder "FailedTestsScreenshots" under src folder
-        String destination = System.getProperty("user.dir") + "/Screenshots/"+screenshotName+dateName+".png";
+        String destination = System.getProperty("user.dir") + "/Screenshots/"+screenshotName+dateName+".jpeg";
         File finalDestination = new File(destination);
         FileUtils.copyFile(source, finalDestination);
         return destination;

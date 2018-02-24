@@ -32,6 +32,9 @@ public class BookATripHomePage {
         return availableFlights().get(number);
 
     }
+    public By noThanksButtonElement(){
+        return noThanksButton;
+    }
     public WebElement noThanksButton(){
         return driver.findElement(noThanksButton);
     }

@@ -15,6 +15,9 @@ public class HomePage {
 
     //By bookATrip=By.xpath("//*[@class='UIAView' and @height>0 and ./*[@text='Btm_Normal_BookATrip']]");
     By bookATrip=By.xpath("//*[@class='UIImageView' and @width>0 and @height>0 and ./following-sibling::*[@text='Book'] and ./parent::*[@class='UIView' and @height>0]] ");
+    public By bookATripButton(){
+        return bookATrip;
+    }
     public WebElement myTrips(){
         return driver.findElement(myTrips);
     }

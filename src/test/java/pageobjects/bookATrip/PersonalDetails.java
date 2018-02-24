@@ -16,13 +16,17 @@ public class PersonalDetails {
     By lastName = By.xpath("//*[@text='Last name' and @visible='true']");
     By emailAddress = By.xpath("//*[@text='E-mail address' and @visible='true']");
     By countryCode = By.xpath("//*[@text='Country code' and @visible='true']");
+    By titleMr = By.xpath("//*[@text='Mr' and @top='true']");
+    By continueToPaymentButton = By.xpath("//*[@accessibilityLabel='Continue to payment']");
 
     public By getTitle() {
         return title;
+
     }
     public WebElement title(){
         return driver.findElement(title);
     }
+
 
     public By getFirstName() {
         return firstName;
@@ -54,10 +58,19 @@ public class PersonalDetails {
     public By getFlyingBlueNumber() {
         return flyingBlueNumber;
     }
+    public By continueToPaymentButtonBy(){
+        return continueToPaymentButton;
+    }
+    public WebElement continueToPaymentButton(){
+        return driver.findElement(continueToPaymentButton);
+    }
 
     By flyingBlueNumber = By.xpath("//*[@text='frequent flyer number' and @visible='true']");
     public WebElement personalDetails(){
         return driver.findElement(personalDetailsText);
+    }
+    public WebElement titleMr(){
+        return driver.findElement(titleMr);
     }
 
 

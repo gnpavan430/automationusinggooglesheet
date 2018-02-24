@@ -54,14 +54,33 @@ public class Utilities {
 
 
     }
-    public int currentDate(){
-        DateFormat dateFormat = new SimpleDateFormat("dd");
+    public int currentDate(int numberOfDays){
+        /*DateFormat dateFormat = new SimpleDateFormat("dd");
         Date date = new Date();
         System.out.println("Date is"+date);
         String dt=date.toString();
+        *//*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date =formatter.parse(newFlightTime);*//*
+
+        System.out.println("Date is"+date);
+        Date newDate =org.apache.commons.lang3.time.DateUtils.addDays(new Date(),4);
 
         int currentDate= Integer.parseInt(dt.substring(8,10));
-        return currentDate;
+        return currentDate;*/
+        String date;
+        Date newDate =org.apache.commons.lang3.time.DateUtils.addDays(new Date(),numberOfDays);
+        String newDate2 = String.valueOf(newDate);
+        //System.out.println("Substring"+newDate2.substring(8,9));
+        if(newDate2.substring(8,9).equalsIgnoreCase("0")){
+            System.out.println("New value of date is"+newDate2.substring(9,10));
+            date = newDate2.substring(9,10);
+        }
+        else{
+            System.out.println("New value of date is"+newDate2.substring(8,10));
+            date = newDate2.substring(8,10);
+        }
+        return Integer.parseInt(date);
+
     }
     public static long responseTime(String date){
         int hours = Integer.parseInt(date.substring(7,9));
@@ -107,18 +126,26 @@ public class Utilities {
         //driver.findElementByXPath("//*[@text='Edge' and @class='UIAView']").click();
 
     }
-    public static void swipeWhileNotFound(By element){
+    public static void swipeWhileNotFound(IOSDriver driver,By element){
         //driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, element, 1000, 5, true)");
         //String elementToFind="//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL1133  |' and @visible='true']";
         //driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, \"NATIVE\", \"xpath=//*[@accessibilityIdentifier='flight_Number_textview' and @text='KL1133  |' and @visible='true']\", 0, 1000, 5, true)");
         String elementToFind = "xpath="+element;
-        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, \"NATIVE\", elementToFind, 0, 1000, 5, true)");
+       // driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 2000, \"NATIVE\", elementToFind, 0, 1000, 5, true)");
+        driver.executeScript("client:client.swipeWhileNotFound(\"Down\", 400, 500, \"NATIVE\", \"//*[@text='Title' and @visible='true']\", 0, 1000, 5, true)");
+
 
 
     }
-    public static void swipe(){
-        driver.executeScript("client:client.swipe(\"Down\", 400, 500)");
+    public static void swipe(IOSDriver driver,By by){
+        while((driver.findElements(by)).size()==0){
+            driver.executeScript("client:client.swipe(\"Down\", 400, 200)");
+        }
 
+
+    }
+    public static void swipe(IOSDriver driver){
+        driver.executeScript("client:client.swipe(\"Down\", 400, 200)");
     }
     public boolean checkElementVisibility( By xpath) {
         try {
@@ -217,14 +244,21 @@ public class Utilities {
         driver.executeScript("client:client.launch(\"com.klm.mobile.iphone.MCAR-iPhone\", \"true\", \"true\")");
 
     }
-    public boolean isElementDisplayed(){
+    public static boolean isElementDisplayed(By element){
         try{
-             driver.findElementByXPath("//*[@text='Settings' and @class='UIAStaticText']");
+            driver.findElement(element);
+             //driver.findElementByXPath("//*[@text='Settings' and @class='UIAStaticText']");
              return true;
+        }
+        catch(NullPointerException e){
+            System.out.println("Element not found");
+            return false;
+
         }
         catch (ElementNotFoundException e){
             System.out.println("Element not found");
             return false;
+
         }
     }
 }
