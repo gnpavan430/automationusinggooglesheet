@@ -26,7 +26,6 @@ import java.util.Set;
 //import Utilities.JUnitTestReporter;
 
 public class BookATripTest extends NewSetup {
-   
     @Test
     public void bookATrip() throws InterruptedException {
         //BookATripPage bookATripPage = new BookATripPage(driver);
