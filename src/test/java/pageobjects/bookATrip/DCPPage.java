@@ -10,6 +10,7 @@ public class DCPPage {
         this.driver=driver;
 
     }
+
     public By titleText = By.xpath("//*[@accessibilityLabel='Pay']");
     public By closeButton = By.xpath("//*[@accessibilityIdentifier='NavigationBarCloseWhite.png']");
     public By goBackButton = By.xpath("//*[@text='Go back']");
@@ -23,5 +24,6 @@ public class DCPPage {
     public WebElement price(){
         return driver.findElement(price);
     }
+
 
 }

@@ -47,7 +47,7 @@ public class Practice {
         System.out.println("Date is"+date);
         Date newDate1 =org.apache.commons.lang3.time.DateUtils.addHours(date,hours);
         System.out.println("New date is"+newDate1);
-        String newDateString = formatter.format(newDate)+extraPart;
+        String newDateString = formatter.format(newDate1)+extraPart;
         System.out.println("New Date string is"+newDateString);
         String newFramedString=newDateString.substring(0,10)+"T"+newDateString.substring(11,19)+newDateString.substring(19,29);
         System.out.println("New Framed String is"+newFramedString);

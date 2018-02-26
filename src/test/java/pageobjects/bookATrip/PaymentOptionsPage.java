@@ -11,14 +11,15 @@ public class PaymentOptionsPage {
 
     }
      By payWith = By.xpath("//*[@accessibilityLabel='Pay with']");
-     By checkbox = By.xpath("//*[@accessibilityLabel='checkboxUnchecked' and @visible='true']");
+     By checkbox = By.xpath("//*[@accessibilityLabel='checkboxUnchecked' and ./parent::*[@class='UIView' and @visible='true']]");
      By continueToPaymentButtonEnabled = By.xpath("//*[@class='CoreAppRedesign.KLMAppButton' and @enabled='true']");
     By continueToPaymentButtonDisabled = By.xpath("//*[@class='CoreAppRedesign.KLMAppButton' and @enabled='false']");
      By totalPrice = By.xpath("//*[@accessibilityIdentifier='total_currency_label']");
      By changePaymentMethod = By.xpath("//*[@text='Change payment method']");
      By creditCard = By.xpath("//*[@text='Credit card']");
+     By paymentElement = By.xpath("//*[contains(text(),'paymentMethod') and @visible='true' and @top='true']");
     // By creditCardPaymentMethodCard = By.xpath("//*[contains(text(),'paymentCard']");
-     By americanExpressCreditCard = By.xpath("//*[@text='Air France KLM American Express card + EUR 4.78']");
+     //By americanExpressCreditCard = By.xpath("//*[@text='Air France KLM American Express card + EUR 4.78']");
      public By payWith(){
          return payWith;
      }
@@ -57,7 +58,7 @@ public class PaymentOptionsPage {
 
     }
 
-     public WebElement creditCardPaymentMethodElement(String paymentMethodCard){
+     public WebElement paymentMethodElement(String paymentMethodCard){
          String oldPaymentCard = "//*[contains(text(),'paymentCard')and @visible='true'and @top='true']";
          String newPaymentMethod = oldPaymentCard.replace("paymentCard",paymentMethodCard);
          By paymentMethod = By.xpath(newPaymentMethod);
@@ -67,8 +68,14 @@ public class PaymentOptionsPage {
      public By creditCard(){
          return creditCard;
      }
-     public WebElement creditCardElement(){
-         return driver.findElement(creditCard);
+     public By paymentElementBy(String paymentMethodCard){
+         String oldPaymentCard = "//*[contains(text(),'paymentCard')and @visible='true'and @top='true']";
+         String newPaymentMethod = oldPaymentCard.replace("paymentCard",paymentMethodCard);
+         By paymentMethod = By.xpath(newPaymentMethod);
+         return paymentMethod;
+     }
+     public WebElement paymentElement(String paymentMethod){
+         return driver.findElement(paymentElement);
      }
     /* public By paymentcardBy(){
          return creditCardPaymentMethodCard;

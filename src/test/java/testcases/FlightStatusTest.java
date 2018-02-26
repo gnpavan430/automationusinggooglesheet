@@ -65,7 +65,7 @@ public class FlightStatusTest extends NewSetup {
 
     //@Parameters({ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" })
     @Test(dataProvider="data")
-    public void flightStatusTest(String flightStatus,String displayedStatus) throws Exception {
+    public void flightStatusTest(String flightStatus,String displayedStatus,int hours) throws Exception {
 
         Quickstart quickstart = new Quickstart();
         HomePage homePage=new HomePage(driver);
@@ -79,6 +79,12 @@ public class FlightStatusTest extends NewSetup {
         //For the first time PreviousFlightStatus is taken as String variable. From next time onwards data is read from the file "Published Status"
         Thread.sleep(120000);
         fileUtilities.flightStatusChange(previousFlightStatus,flightStatus);
+        if((flightStatus.equalsIgnoreCase("EARLY_DEPARTURE"))){
+            fileUtilities.changeLatestPublishedDepartureTime(-4);
+        }
+        if((flightStatus.equalsIgnoreCase("DELAYED_DEPARTURE"))){
+            fileUtilities.changeLatestPublishedDepartureTime(4);
+        }
         Thread.sleep(2000);
 
         logger = extent.startTest("Test case Name"+flightStatus);
@@ -182,7 +188,7 @@ public class FlightStatusTest extends NewSetup {
     @DataProvider(name = "data")
     public static Object[][] data() {
         return new Object[][]{
-                { "EARLY_ARRIVAL","Early arrival" }, {"DELAYED_ARRIVAL","Delayed arrival" }, { "EARLY_DEPARTURE","Early departure"}, { "DELAYED_DEPARTURE","Delayed departure" }
+                { "EARLY_ARRIVAL","Early arrival" }, {"DELAYED_ARRIVAL","Delayed arrival" }, { "EARLY_DEPARTURE","Early departure",-4}, { "DELAYED_DEPARTURE","Delayed departure",4 }
 
         };
         //return Arrays.asList(new Object[][] {{ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" }});
@@ -222,7 +228,8 @@ public class FlightStatusTest extends NewSetup {
     public void getResult(ITestResult result) throws Exception {
         if(result.getStatus() == ITestResult.FAILURE){
             logger.log(LogStatus.FAIL, "Test Case Failed is "+result.getName());
-            // logger.log(LogStatus.FAIL, "Test Case Failed is "+result.getThrowable());
+            // logger.log(LogStatus.FAIL, "Test Caseas Failed is "+result.getThrowable());
+            // logger.log(LogStatus.FAIL, "Test Caseas Failed is "+result.getThrowable());
             //To capture screenshot path and store the path of the screenshot in the string "screenshotPath"
             //We do pass the path captured by this mehtod in to the extent reports using "logger.addScreenCapture" method.
             logger.log(LogStatus.FAIL, "Test Case Failed for status "+displayedStatus);

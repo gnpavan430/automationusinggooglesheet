@@ -203,7 +203,8 @@ public class BookATripTest extends NewSetup {
     }
 
     @Test(dataProvider = "Authentication")
-    public void bookATripNormalPayment(String paymentCreditCard) throws InterruptedException {
+    public void bookATripNormalPayment(String mainPayment,String subPayment) throws InterruptedException {
+        PayPalPage payPalPage = new PayPalPage(driver);
         BookATripHomePage bookATripHomePage = new BookATripHomePage(driver);
         PaymentOptionsPage paymentOptionsPage = new PaymentOptionsPage(driver);
         DCPPage dcpPage = new DCPPage(driver);
@@ -333,20 +334,29 @@ public class BookATripTest extends NewSetup {
         personalDetails.continueToPaymentButton().click();
         Utilities.waitForElement(driver,paymentOptionsPage.payWith());
         String paymentOptionsPriceBefore = paymentOptionsPage.totalPrice().getText().trim();
-        Utilities.swipe(driver,paymentOptionsPage.changePaymentMethodBy());
+       // Utilities.swipe(driver,paymentOptionsPage.changePaymentMethodBy());
         if(driver.findElements(By.xpath("//*[@text='Change payment method']")).size()>0){
             paymentOptionsPage.changePaymentMethod().click();
         }
-        Utilities.waitForElement(driver,paymentOptionsPage.creditCard());
-        paymentOptionsPage.creditCardElement().click();
-        Utilities.swipe(driver,paymentOptionsPage.creditCardPaymentMethodElementBy(paymentCreditCard));
+        Utilities.waitForElement(driver,paymentOptionsPage.paymentElementBy(mainPayment));
+        Utilities.swipe(driver,paymentOptionsPage.paymentElementBy(mainPayment));
+        paymentOptionsPage.paymentMethodElement(mainPayment).click();
+        if(!(subPayment.equalsIgnoreCase("PayPal"))){
+            Utilities.swipe(driver,paymentOptionsPage.paymentElementBy(subPayment));
+            paymentOptionsPage.paymentMethodElement(subPayment).click();
+        }
+
+        if((subPayment.equalsIgnoreCase("Visa")) || (subPayment.equalsIgnoreCase("MasterCard"))){
+
+        }
+        //paymentOptionsPage.paymentMethodElement(paymentCreditCard).click();
         /*while((driver.findElements(paymentOptionsPage.creditCardPaymentMethodElementBy(paymentCreditCard)).size()==0)){
             Utilities.swipe(driver);
         }*/
-        if((paymentCreditCard.equalsIgnoreCase("Diners Club")) || (paymentCreditCard.equalsIgnoreCase("UATP"))){
+        /*if((paymentCreditCard.equalsIgnoreCase("Diners Club")) || (paymentCreditCard.equalsIgnoreCase("UATP"))){
             Utilities.swipe(driver);
-        }
-        paymentOptionsPage.creditCardPaymentMethodElement(paymentCreditCard).click();
+        }*/
+
         Utilities.swipe(driver,paymentOptionsPage.checkBox());
        /* while((driver.findElements(paymentOptionsPage.checkBox()).size()==0)){
             Utilities.swipe(driver);
@@ -369,6 +379,17 @@ public class BookATripTest extends NewSetup {
         dcpPage.goBackButton().click();
         Utilities.waitForElement(driver,paymentOptionsPage.payWith());
         String paymentOptionsPriceAfter = paymentOptionsPage.totalPrice().getText().trim();
+        if((mainPayment.equalsIgnoreCase("PayPal"))){
+             driver.context("WEBVIEW_1");
+             Utilities.waitForElement(driver,payPalPage.paypalTitleText);
+             payPalPage.username().clear();
+             payPalPage.username().sendKeys("testblue@klm.com");
+             payPalPage.password().sendKeys("klmmobile");
+             payPalPage.loginButton().click();
+
+
+
+        }
 
         Assert.assertEquals(dcpPrice,paymentOptionsPriceBefore);
         Assert.assertEquals(dcpPrice,paymentOptionsPriceAfter);
@@ -380,9 +401,10 @@ public class BookATripTest extends NewSetup {
     }
     @DataProvider(name = "Authentication")
 
-    public static Object[] credentials() {
+    public static Object[][] credentials() {
 
-        return new Object[]  { "Air France KLM" ,  "JCB","Diners Club","UATP"};
+        //return new Object[]  { "Air France KLM" ,  "JCB","Diners Club","UATP"};
+        return new Object[][]{{"banking","ABN AMRO"},{"Credit card","Diners"},{"PayPal",""}};
 
     }
 
