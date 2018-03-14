@@ -94,7 +94,10 @@ public class Utilities {
     public static double timeFormatter(Long time){
         double seconds=time/1000;
         System.out.println("seconds:"+seconds);
-        double milliseconds=(double)(time%1000)/1000;
+        //double milliseconds=(double)(time%1000)/1000;
+        double milliseconds=(double)(time%1000);
+        double minutes = (double)(seconds/60);
+        double sec=(double)(seconds%60);
         System.out.println("Milli seconds:"+milliseconds);
         double duration=seconds+milliseconds;
         String value=""+seconds+"Seconds"+milliseconds+"Milli Seconds";
@@ -137,9 +140,18 @@ public class Utilities {
 
 
     }
+    public static void hideKeyboard(IOSDriver driver){
+        driver.hideKeyboard();
+    }
     public static void swipe(IOSDriver driver,By by){
-        while((driver.findElements(by)).size()==0){
+        int i=0;
+        while(((driver.findElements(by)).size()==0) &(i<10)){
+
+
             driver.executeScript("client:client.swipe(\"Down\", 400, 200)");
+            //driver.executeScript("client:client.swipe(\"Down\", 20, 20)");
+            i++;
+
         }
 
 
@@ -147,7 +159,10 @@ public class Utilities {
     public static void swipe(IOSDriver driver){
         driver.executeScript("client:client.swipe(\"Down\", 400, 200)");
     }
-    public boolean checkElementVisibility( By xpath) {
+    public static void flightOfferSwipe(IOSDriver driver){
+        driver.executeScript("client:client.swipe(\"Down\", 100, 50)");
+    }
+    public boolean checkElementVisibility(IOSDriver driver, By xpath) {
         try {
             driver.findElement(xpath);
             return true;
@@ -244,6 +259,11 @@ public class Utilities {
         driver.executeScript("client:client.launch(\"com.klm.mobile.iphone.MCAR-iPhone\", \"true\", \"true\")");
 
     }
+    public void getConsoleLogs(IOSDriver driver){
+        String script = "client:client.runNativeAPICall(\"NATIVE\", \"xpath=//*[@class='CoreAppRedesign.CustomNavigationBar']\", 0, \n" +
+                "                    \"invokeMethod:'{\\\"selector\\\":\\\"currentLogFileContents\\\",\\\"arguments\\\":[]}'\");";
+        System.out.println(driver.executeScript(script));
+    }
     public static boolean isElementDisplayed(By element){
         try{
             driver.findElement(element);
@@ -251,7 +271,7 @@ public class Utilities {
              return true;
         }
         catch(NullPointerException e){
-            System.out.println("Element not found");
+            System.out.println("Element not found-- Null pointer");
             return false;
 
         }

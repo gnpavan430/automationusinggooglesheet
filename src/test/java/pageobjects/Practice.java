@@ -15,8 +15,10 @@ import java.util.Date;
 
 public class Practice {
     public static void main(String args[]) throws ParseException, IOException {
-        Practice practice = new Practice();
-        practice.changeDate(4);
+      /*  Practice practice = new Practice();
+        practice.changeDate(4);*/
+        String destination = System.getProperty("user.dir") + "/Screenshots/"+"screenshotName"+"dateName"+".jpeg";
+        System.out.println("Path is"+destination);
 
     }
     public void changeDate(int hours) throws ParseException, IOException {

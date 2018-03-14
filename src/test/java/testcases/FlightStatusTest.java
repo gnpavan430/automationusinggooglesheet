@@ -78,12 +78,19 @@ public class FlightStatusTest extends NewSetup {
         System.out.println("Previous flight from response is "+previousFlightStatus);
         //For the first time PreviousFlightStatus is taken as String variable. From next time onwards data is read from the file "Published Status"
         Thread.sleep(120000);
+        //Method used for flight status change. It will update the flight status file in the local machine
         fileUtilities.flightStatusChange(previousFlightStatus,flightStatus);
         if((flightStatus.equalsIgnoreCase("EARLY_DEPARTURE"))){
-            fileUtilities.changeLatestPublishedDepartureTime(-4);
+            fileUtilities.changeLatestPublishedTime("departureInformation",-4);
         }
         if((flightStatus.equalsIgnoreCase("DELAYED_DEPARTURE"))){
-            fileUtilities.changeLatestPublishedDepartureTime(4);
+            fileUtilities.changeLatestPublishedTime("departureInformation",4);
+        }
+        if((flightStatus.equalsIgnoreCase("EARLY_ARRIVAL"))){
+            fileUtilities.changeLatestPublishedTime("arrivalInformation",-4);
+        }
+        if((flightStatus.equalsIgnoreCase("DELAYED_ARRIVAL"))){
+            fileUtilities.changeLatestPublishedTime("arrivalInformation",4);
         }
         Thread.sleep(2000);
 
@@ -115,14 +122,14 @@ public class FlightStatusTest extends NewSetup {
         Thread.sleep(8000);
         addABookingPage.bookingCode().click();
         //addABookingPage.bookingCode().sendKeys("KXAKXW");
-        driver.getKeyboard().sendKeys("WTET29");
+        driver.getKeyboard().sendKeys("U9AQWU");
 
         Thread.sleep(4000);
         addABookingPage.lastName().click();
-        driver.getKeyboard().sendKeys("SHOP");
+        driver.getKeyboard().sendKeys("pradeepkumar");
 
         //addABookingPage.lastName().sendKeys("LOU");
-        myTripsPage.setBookingCode("WTET29");
+        myTripsPage.setBookingCode("U9AQWU");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         //getLogs.startLogs();
 
@@ -188,7 +195,7 @@ public class FlightStatusTest extends NewSetup {
     @DataProvider(name = "data")
     public static Object[][] data() {
         return new Object[][]{
-                { "EARLY_ARRIVAL","Early arrival" }, {"DELAYED_ARRIVAL","Delayed arrival" }, { "EARLY_DEPARTURE","Early departure",-4}, { "DELAYED_DEPARTURE","Delayed departure",4 }
+                { "EARLY_ARRIVAL","Early arrival",-4 },{ "ONTIME","On time",4 },{ "INTRANSIT","On its way",0 },{ "ARRIVED","Arrived",0 },{"DELAYED_ARRIVAL","Delayed arrival",8 }, { "EARLY_DEPARTURE","Early departure",-4}, { "DELAYED_DEPARTURE","Delayed departure",8 }
 
         };
         //return Arrays.asList(new Object[][] {{ "EARLY_ARRIVAL","EARLY Arrival" }, {"DELAYED_ARRIVAL","Delayed Arrival" }, { "EARLY_DEPARTURE","Early Departure"}, { "DELAYED_DEPARTURE","Delayed Departure" }});
@@ -199,7 +206,8 @@ public class FlightStatusTest extends NewSetup {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         //after execution, you could see a folder "FailedTestsScreenshots" under src folder
-        String destination = System.getProperty("user.dir") + "/Screenshots/"+screenshotName+dateName+".jpeg";
+       // String destination = System.getProperty("user.dir") + "/Screenshots/"+screenshotName+dateName+".jpeg";
+        String destination = "../Screenshots/"+screenshotName+dateName+".jpeg";
         File finalDestination = new File(destination);
         FileUtils.copyFile(source, finalDestination);
         return destination;

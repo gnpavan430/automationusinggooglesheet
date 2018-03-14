@@ -18,8 +18,9 @@ public class NewLoginPage {
     //By username= By.xpath("//*[@XCElementType='XCUIElementTypeTextField']");
     //By password= By.xpath("//*[@XCElementType='XCUIElementTypeSecureTextField']");
     By usernameWithID = By.xpath("//*[@class='UITextFieldLabel' and @textColor='0x061B2B']");
-    By username = By.xpath("//*[@text='Email or Flying Blue number' and @class='UITextFieldLabel']");
-    By password = By.xpath("//*[@accessibilityLabel='PIN or password']");
+    By username = By.xpath("//*[@text='E-mail address or Flying Blue number' and @class='UITextFieldLabel']");
+    By password = By.xpath("//*[@accessibilityLabel='PIN code or password']");
+    By pass =By.xpath("//*[@accessibilityLabel='PIN code or password']");
     By loginButton = By.xpath("//*[@text='Log in' and ./parent::*[@class='CoreAppRedesign.TCARAppButton']]");
     By loginScreenHeaderText= By.xpath("//*[@text='Log in' and ./parent::*[@class='CoreAppRedesign.CustomNavigationBar']]");
     By notNow = By.xpath("//*[@text='Not now']");

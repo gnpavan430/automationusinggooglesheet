@@ -187,10 +187,45 @@ public class Quickstart {
                         .execute();
 
     }
+    //Method for adding values related to Add a Booking in Google sheet
     public void appendValuesAddABooking(String network, Date timeStamp, long totalTime, long appTime, long responseTimeValue) throws IOException {
         String range=null;
         Sheets service = getSheetsService();
         String spreadsheetId = "1HNxa-JWRlMMsgJBEIAUWpAWcVLFUTM-a4_JFoG0uHbU";
+        long time=timeStamp.getTime();
+        String timeString=timeStamp.toString();
+        if(network.equalsIgnoreCase("Good Network")){
+            range = "A2:D";
+        }else if(network.equalsIgnoreCase("Bad Network")){
+            range = "F2:I";
+        }
+        else if(network.equalsIgnoreCase("Edge Network")){
+            range = "K2:N";
+        }
+
+
+
+        List<List<Object>> values = Arrays.asList(
+                Arrays.asList(
+                        // Cell values ...
+                        timeString,totalTime,appTime,responseTimeValue
+
+                )
+                // Additional rows ...
+        );
+        ValueRange body = new ValueRange().setValues(values);
+
+        AppendValuesResponse result = service.spreadsheets().values().append(spreadsheetId, range, body)
+                .setValueInputOption(valueInputOption)
+                .execute();
+
+    }
+
+    //Adding Book a Trip time stamps in Google Sheet
+    public void appendValuesBookATrip(String network, Date timeStamp, long totalTime, long appTime, long responseTimeValue) throws IOException {
+        String range=null;
+        Sheets service = getSheetsService();
+        String spreadsheetId = "1F-fH-8qDgaT4z4wQWgkJSFajpx8V8VdRQEYtjhKtB8E";
         long time=timeStamp.getTime();
         String timeString=timeStamp.toString();
         if(network.equalsIgnoreCase("Good Network")){

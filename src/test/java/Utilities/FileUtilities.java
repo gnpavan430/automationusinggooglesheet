@@ -21,6 +21,8 @@ public class FileUtilities {
         //file();
        /* FileUtilities fileUtilities = new FileUtilities();
         fileUtilities.changeLatestPublishedDepartureTime(4);*/
+       /*FileUtilities fileUtilities = new FileUtilities();
+       fileUtilities.changeLatestPublishedTime("Info",4);*/
 
     }
 
@@ -28,7 +30,7 @@ public class FileUtilities {
     BufferedReader bufferedReader = new BufferedReader(reader);*/
  public static void file() throws IOException {
      int contentLength = 0;
-     FileReader reader = new FileReader("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1134flightstatus.txt");
+     FileReader reader = new FileReader("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
      BufferedReader bufferedReader = new BufferedReader(reader);
      String line;
       /*  while((line=bufferedReader.readLine())!=null){
@@ -38,7 +40,7 @@ public class FileUtilities {
 
         }*/
 
-     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\KL887flightStatuResponse.txt");
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
      Charset charset = StandardCharsets.UTF_8;
 
      String content = new String(Files.readAllBytes(path), charset);
@@ -95,7 +97,7 @@ public class FileUtilities {
 
  }
  public String pubilshStatus() throws IOException {
-     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
      Charset charset = StandardCharsets.UTF_8;
 
      String content = new String(Files.readAllBytes(path), charset);
@@ -112,8 +114,9 @@ public class FileUtilities {
 
 
  }
-    public String changeLatestPublishedDepartureTime(int hours) throws IOException, ParseException {
-        Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
+
+    public void changeLatestPublishedTime(String information,int hours) throws IOException, ParseException {
+        Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
         Charset charset = StandardCharsets.UTF_8;
 
         String content = new String(Files.readAllBytes(path), charset);
@@ -121,20 +124,30 @@ public class FileUtilities {
      /*System.out.println("Extracted content is--------------------------------------------");
      System.out.println(answer);*/
         String json = answer+"}";
-        JSONObject obj = new JSONObject(json);
+        String json1=json;
+        // Parsing Json into Json objects and there by replacing the content in the Json
+        JSONObject obj = new JSONObject(json1);
         JSONArray jsonArray = obj.getJSONArray("flightLegs");
         JSONObject obj2 = jsonArray.getJSONObject(0);
-        JSONObject obj3 = obj2.getJSONObject("departureInformation");
+        JSONObject obj3 = obj2.getJSONObject(information);
         JSONObject obj4 = obj3.getJSONObject("times");
         String latestPublishedDepartureTime=obj4.getString("latestPublished");
         System.out.println("Before change:"+latestPublishedDepartureTime);
         obj4.put("latestPublished",changeDate(hours));
         String publishedTimeAfterChange = obj4.getString("latestPublished");
         System.out.println("After change:"+publishedTimeAfterChange);
+        System.out.println("Json before update:"+json1);
+        // Updating the Json string and assigning it an updated json object. Here Json object is updated with the change in latestPublished Departure time
+         json1=obj.toString();
+        //System.out.println("Updated Json is"+json1);
+
+        content= content.replace(json,json1);
+
+        Files.write(path, content.getBytes(charset));
         //String departureDate = latestPublishedDepartureTime;
         //obj4.put("latestPublished", DateUtils.addHours(departureDate,2));
-        System.out.println("Value of flightStatus from sheet is"+latestPublishedDepartureTime);
-        return latestPublishedDepartureTime;
+        //System.out.println("Value of flightStatus from sheet is"+latestPublishedDepartureTime);
+
 
     }
     public String changeDate(int hours) throws ParseException, IOException {
@@ -174,7 +187,7 @@ public class FileUtilities {
     }
 
  public String latestPublishedDepartureTime() throws IOException {
-     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
      Charset charset = StandardCharsets.UTF_8;
 
      String content = new String(Files.readAllBytes(path), charset);
@@ -182,12 +195,14 @@ public class FileUtilities {
      /*System.out.println("Extracted content is--------------------------------------------");
      System.out.println(answer);*/
      String json = answer+"}";
+     String json1=json;
      JSONObject obj = new JSONObject(json);
      JSONArray jsonArray = obj.getJSONArray("flightLegs");
      JSONObject obj2 = jsonArray.getJSONObject(0);
      JSONObject obj3 = obj2.getJSONObject("departureInformation");
      JSONObject obj4 = obj3.getJSONObject("times");
      String latestPublishedDepartureTime=obj4.getString("latestPublished");
+
      System.out.println("Value of flightStatus from sheet is"+latestPublishedDepartureTime);
      return latestPublishedDepartureTime;
 
@@ -195,11 +210,11 @@ public class FileUtilities {
  public void flightStatusChange(String previousFlightStatus,String newFlightStatus) throws IOException {
      int contentLength = 0;
      int diff = newFlightStatus.length()-previousFlightStatus.length();
-     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
+     Path path = Paths.get("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
      Charset charset = StandardCharsets.UTF_8;
 
      String content = new String(Files.readAllBytes(path), charset);
-     FileReader reader = new FileReader("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1681flightstatusresponse.txt");
+     FileReader reader = new FileReader("C:\\Users\\X085271\\Desktop\\New folder (5)\\kl1244flightstatusresponse.txt");
      BufferedReader bufferedReader = new BufferedReader(reader);
      String line;
      while((line=bufferedReader.readLine())!=null){

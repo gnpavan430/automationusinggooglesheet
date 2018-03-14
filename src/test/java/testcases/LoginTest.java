@@ -184,7 +184,7 @@ public class LoginTest extends Setup {
         System.out.println("After entering text"+dateFormat1.format(date9));
         loginPage.password().sendKeys(list.get(1).toString());
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
+        //This is the method that will start taking the logs
         try {
             getLogs.startLogs();
             //startLogs();
@@ -229,7 +229,7 @@ public class LoginTest extends Setup {
         //double value1 = Utilities.timeFormatter(diff1);
         System.out.println("Time in Seconds"+diff1);
         System.out.println("Time taken for logout"+value1);
-
+        //Method to stop the logs
         getLogs.stopLogs();
         //stopLogs();
         //readData();

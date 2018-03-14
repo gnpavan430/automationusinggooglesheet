@@ -30,9 +30,12 @@ public class BookATripPage {
     By lightBrandedFare=By.xpath("//*[@text='LIGHT']");
     By standardBrandedFare =By.xpath("//*[@text='STANDARD']");
     By flexBrandedFare =By.xpath("//*[@text='FLEX']");
-    By selectBrandedFareButton = By.xpath("//*[@accessibilityLabel='Select' and @class='CoreAppRedesign.KLMAppButton' and @hidden='false' and @visible='true']");
+   // By selectBrandedFareButton = By.xpath("//*[@accessibilityLabel='Select' and @class='CoreAppRedesign.KLMAppButton' and @hidden='false' and @visible='true']");
+   By selectBrandedFareButton = By.xpath("//*[@accessibilityLabel='Select' and @top='true']");
     By chooseReturnFlightText=By.xpath("//*[@text='Choose a return flight']");
     By returnAvailableFlights = By.xpath("//*[@class='UIView' and @width>0 and @height>0 and ./*[@text='Direct'] and ./*[@text='BCN']]");
+    By lastFlightElement = By.xpath("//*[@accessibilityIdentifier='flight_last_element']");
+
     //By returnSelectBrandedFareButton = By.xpath("//*[@text='Select']");
     public By availableFlightsElement(){
         return availableFlights;
@@ -82,9 +85,21 @@ public class BookATripPage {
     public By chooseReturnFlightText(){
         return chooseReturnFlightText;
     }
+
+    public By lastFlightElement(){
+        return lastFlightElement;
+    }
+    public WebElement lastFlightWebElement(){
+        return driver.findElement(lastFlightElement);
+    }
+
+
+
+
     public WebElement returnAvailableOffers(){
         return driver.findElement(returnAvailableFlights);
     }
+
 
 
 
@@ -135,6 +150,10 @@ public class BookATripPage {
         String newDate = oldDate.replace("date",Integer.toString(date));
         By returnDate = By.xpath(newDate);
         return driver.findElement(returnDate);
+    }
+    public WebElement availableFlightsWebElement(){
+        int size=driver.findElements(availableFlights).size();
+        return (WebElement) driver.findElements(availableFlights).get(size-1);
     }
     public void returnFlight(){
         returnAvailableOffers();
